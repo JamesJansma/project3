@@ -21,25 +21,27 @@ void error(int);
 
 int main(int argc, char* argv[])
 {
-int columns, amountPrime;
+    int columns, amountPrime;
 
-columns = atoi(argv[1]);
-if(columns < 1)
-    error(1);
+    columns = atoi(argv[1]);
+    if(columns < 1)
+        error(1);
 
-amountPrime = atoi(argv[2]);
-if(amountPrime < 1)
-    error(2);
+    amountPrime = atoi(argv[2]);
+    if(amountPrime < 1)
+        error(2);
 
-display(amountPrime, columns);
+    display(amountPrime, columns);
 
 
 
 }
 
-bool isNumPrime(int num){
+bool isNumPrime(int num)
+{
 
-if (num == 1) {
+    if (num == 1) 
+    {
         return false;
     }
 
@@ -94,7 +96,7 @@ void error(int code){
     }
     if (code == 2)
     {
-        Count << "Amount of prime numbers must be <= 1" << endl;
+        cout << "Amount of prime numbers must be <= 1" << endl;
         exit(EXIT_FAILURE);
     }
 }
