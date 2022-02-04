@@ -120,6 +120,7 @@ char encrypt(char ch, int key)
     newCh = alpha[(((i + key)%26))];
     return newCh;
 }
+
 /*
 Description: Decrypts an upper case alphabetic character using the Caesar cipher
 Input: upper case alphabetic character, valid key
@@ -135,7 +136,11 @@ char decrypt(char ch, int key)
     return newCh;
 }
 
-
+/*
+Description: Randomly generates an integer in the range: [1..25]
+Input: none
+Output: returns a randomly generated integer in the range [1..25]
+*/
 int keyGen()
 {
     unsigned seed = time(0);
@@ -171,8 +176,11 @@ void fileOpen(fstream& file, string name, char mode)
   exit(EXIT_FAILURE);
  }
 }
+
 /*
 Descryption: finds the index of the char in the array of with the alphabet.
+Input: Character and an array of alphabet
+Return: int that is the index of the Character in the array
 */
 int findIdx(char ch, char alpha[])
 {
