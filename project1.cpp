@@ -11,7 +11,7 @@ If a factor is found in that range it is obviously not prime.
 No need to go further than the square root.
 */
 
-
+#include <cstdlib> 
 #include <iostream>
 using namespace std;
 
@@ -23,11 +23,11 @@ int main(int argc, char* argv[])
 {
     int columns, amountPrime;
 
-    columns = atoi(argv[1]);
+    columns = atoi(argv[1]);//gets columns from second commandline item
     if(columns < 1)
         error(1);
 
-    amountPrime = atoi(argv[2]);
+    amountPrime = atoi(argv[2]);//gets number of prime numbers 
     if(amountPrime < 1)
         error(2);
 

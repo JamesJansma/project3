@@ -1,3 +1,12 @@
+/*
+Name: James Jansma
+Class: CPSC 222
+Date: January 21, 2022
+Assignment Name: Project 4
+Description: This program take input from the command line to decide to genretate a key,
+encrypt a plaintext, or decrypt an encrypted plaintext. 
+*/
+
 #include<iostream>
 #include<fstream>
 #include<string>
