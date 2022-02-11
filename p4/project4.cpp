@@ -1,7 +1,7 @@
 /*
 Name: James Jansma
-Class: CPSC 222
-Date: January 21, 2022
+Class: CPSC 222 Section 1
+Date: Febraury 4, 2022
 Assignment Name: Project 4
 Description: This program take input from the command line to decide to genretate a key,
 encrypt a plaintext, or decrypt an encrypted plaintext. 
@@ -18,6 +18,7 @@ int keyGen();
 char encrypt(char, int);
 char decrypt(char, int);
 void fileOpen(fstream&, string, char);
+int keyGenCtr(int,string);
 int findIdx(char, char[]);
 
 int main(int argc,char* argv[])
@@ -27,82 +28,33 @@ int main(int argc,char* argv[])
     fstream fin;
     fstream fkin;
     fstream fout;
-    
-    if(atoi(argv[1]) == 0)
-    {
-        fileOpen(fout,argv[2],'w');
-        fout << keyGen();
-        fout.close();
-    }
-    else if((atoi(argv[1])) == 1)
+
+    key = keyGenCtr(atoi(argv[1]),argv[2]);
+    if((atoi(argv[1])) == 1)
     {
         fileOpen(fin,argv[3],'r');
         fileOpen(fout,argv[4],'w');
-        fileOpen(fkin,argv[2],'r');
         while (fin.peek() != EOF)
         {
             inChar = fin.get();
-            //cout << inChar;
-            if(inChar == ' ')
-            {
-                fout << inChar;
-            }
-            else if(isalpha(inChar))
-            {
-                if(islower(inChar))
-                {
-                    inChar = toupper(inChar);
-                    fkin >> key;
-                    //cout << key;
-                    newChar = encrypt(inChar,key);
-                    //cout << newChar;
-                    fout << newChar;
-                }
-                else
-                {
-                    fkin >> key;
-                    newChar = encrypt(inChar,key);
-                    fout << newChar;
-                }
-            }
-            else
-                fout << inChar; 
-           
+            newChar = encrypt(inChar,key);
+            fout << newChar;
         }
-        fin.close();
-        fkin.close();
-        fout.close();
     }
     else if(atoi(argv[1]) == 2)
     {
-        fileOpen(fkin,argv[2],'r');
         fileOpen(fin,argv[3],'r');
         fileOpen(fout,argv[4],'w');
         while (fin.peek() != EOF)
         {
             inChar = fin.get();
-            if(inChar == ' ')
-                fout << inChar;
-            else
-            {
-                fkin >> key;
-                newChar = decrypt(inChar,key);
-                fout << newChar;
-            }
+            newChar = decrypt(inChar,key);
+            fout << newChar;
         }
-        fin.close();
-        fkin.close();
-        fout.close();
     }
-    else
-    {
-        cout << "Did not enter a viable number" << endl;
-        exit(EXIT_FAILURE);
-    }
-
-
-
-    
+    fin.close();
+    fkin.close();
+    fout.close();
 }
 
 
@@ -113,12 +65,16 @@ Returns: encrypted version of ch
 */
 char encrypt(char ch, int key)
 {
-    char alpha[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-    char newCh;
-    int i = findIdx(ch,alpha);
-    //cout << "index of letter " << ch << " is " << i << endl; check to make sure indexing was working
-    newCh = alpha[(((i + key)%26))];
-    return newCh;
+    if(ch == '\n' || ch == ' ' || !isalpha(ch))
+    {
+        return ch;
+    }
+     if(islower(ch))
+        ch = toupper(ch);
+        
+    int pos = ch - 'A';
+    pos = (((pos + key)%26));
+    return (pos + 'A');
 }
 
 /*
@@ -128,12 +84,13 @@ Returns: decrypted version of input
 */
 char decrypt(char ch, int key)
 {
-    char alpha[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-    char newCh;
-    int i = findIdx(ch,alpha);
-    //cout << "index of letter " << ch << " is " << i << endl; this was just a check to figure out what was wrong
-    newCh = alpha[((((i - key)+26)%26))];
-    return newCh;
+    if(ch == '\n' || ch == ' ' || !isalpha(ch))
+    {
+        return ch;
+    }
+    int pos = ch - 'A';
+    pos = ((((pos - key) + 26)% 26));
+    return (pos + 'A');
 }
 
 /*
@@ -147,6 +104,32 @@ int keyGen()
     srand(seed);
     int i = rand() % (26);
     return i;
+}
+
+
+int keyGenCtr(int num,string name)
+{
+    fstream fkin;
+    int key;
+    if(num == 0){
+        fileOpen(fkin,name,'w');
+        key =  keyGen();
+        fkin << key;
+        return key;
+    }
+    else if(num == 1 || num == 2)
+    {
+        fileOpen(fkin,name,'r');
+        fkin >> key;
+        return key;
+    }
+    else
+    {
+        cout << "Did not enter a viable number" << endl;
+        exit(EXIT_FAILURE);
+        return 0;
+    }
+
 }
 
 
@@ -182,12 +165,12 @@ Descryption: finds the index of the char in the array of with the alphabet.
 Input: Character and an array of alphabet
 Return: int that is the index of the Character in the array
 */
-int findIdx(char ch, char alpha[])
-{
-    int i =0;
-    while(ch != alpha[i])
-    {
-        i++;
-    }
-    return i;
-}
+// int findIdx(char ch, char alpha[])
+// {
+//     int i =0;
+//     while(ch != alpha[i])
+//     {
+//         i++;
+//     }
+//     return i;
+// }
