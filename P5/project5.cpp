@@ -1,3 +1,12 @@
+/*
+Name: James Jansma
+Class: CPSC 222 Section 1
+Date: Febraury 11, 2022
+Assignment Name: Project 5
+Description: This program take input from the command line to decide to genretate a key,
+encrypt a plaintext, or decrypt an encrypted plaintext. It does it using the affine cipher
+which has a bigger key space than the substitution cypher. 
+*/
 #include<iostream>
 #include<fstream>
 #include<string>
