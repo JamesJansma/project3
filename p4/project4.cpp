@@ -36,7 +36,8 @@ int main(int argc,char* argv[])
         fileOpen(fout,argv[4],'w');
         while (fin.peek() != EOF)
         {
-            inChar = fin.get();
+            if(islower(inChar))
+                inChar = toupper(inChar);
             newChar = encrypt(inChar,key);
             fout << newChar;
         }
@@ -69,8 +70,6 @@ char encrypt(char ch, int key)
     {
         return ch;
     }
-     if(islower(ch))
-        ch = toupper(ch);
         
     int pos = ch - 'A';
     pos = (((pos + key)%26));
