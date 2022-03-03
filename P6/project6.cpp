@@ -1,9 +1,9 @@
 /*
 Name: James Jansma
 Class: CPSC 222 Section 1
-Date: Febraury 18, 2022
+Date: February 18, 2022
 Assignment Name: Project 6
-Description: This program take input from the command line to decide to genretate a key,
+Description: This program take input from the command line to decide to generate a key,
 encrypt a plaintext, or decrypt an encrypted plaintext. It uses the transposition cipher which has
 a key space of 26!-1
 */

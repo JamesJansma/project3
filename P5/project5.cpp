@@ -18,9 +18,7 @@ void keyGen(string);
 char encrypt (char, int, int);
 char decrypt (char, int, int, int[]);
 void fileOpen(fstream&, string, char);
-int keyGenCtr(int,string);
 void fileControl (string,string,string,int);
-int findIdx(char, char[]);
 
 int p = 27;
 
@@ -29,9 +27,9 @@ int main(int argc,char* argv[])
     if(atoi(argv[1]) == 0)
         keyGen(argv[2]);
     else if(atoi(argv[1]) == 1)
-        fileControl ("keyFile",argv[2],argv[3], 1);
+        fileControl (argv[2],argv[3],argv[4], 1);
     else if(atoi(argv[1]) == 2)
-        fileControl ("keyFile",argv[2],argv[3], 2);
+        fileControl (argv[2],argv[3],argv[4], 2);
     else
     {
         cout << "Did not enter a viable number" << endl;
@@ -77,7 +75,7 @@ Output: returns a randomly generated integer in the range [1..25]
 */
 void keyGen(string keyFile)
 {
-    int alpha[] = {1,3,5,7,9,11,15,17,19,21,23,25};
+    int alpha[] = {1,3,5,7,11,17,19,25};
     fstream fout;
     fileOpen(fout,keyFile,'w');
     unsigned seed = time(0);
@@ -85,8 +83,10 @@ void keyGen(string keyFile)
     int i = rand() % (26);
     fout << i;
     fout << "\n";
-    int j = (rand() % (12)) -1;
+    int j = (rand() % (8)) -1;
     fout << alpha[j];
+    fout.close();
+
 }
 /*
 Description: invokes fileOpen (../B-Files/7-openFileError.cpp in my GitHub repo) on all files.  Closes all files.  Reads key file. Reads the input file and either invokes encrypt or decrypt. If the action is encrypt, alphabetic characters are transformed to upper case.   Writes the result of encrypt or decrypt to the output file. 

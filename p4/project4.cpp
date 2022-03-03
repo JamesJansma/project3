@@ -36,6 +36,7 @@ int main(int argc,char* argv[])
         fileOpen(fout,argv[4],'w');
         while (fin.peek() != EOF)
         {
+            inChar = fin.get();
             if(islower(inChar))
                 inChar = toupper(inChar);
             newChar = encrypt(inChar,key);
